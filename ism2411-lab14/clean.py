@@ -48,3 +48,25 @@ df["quantity_sold"] = df["quantity_sold"].astype(int)
 df["revenue"] = (df["unit_price"] * df["quantity_sold"]).round(2)
 
 print(df.dtypes)
+
+# Exercise 5 - Check duplicates
+
+print(df.duplicated().sum())
+
+df = df.drop_duplicates()
+
+print(df.shape)
+
+# Exercise 6 - Describe
+
+print(df.describe())
+
+# The negative minimum revenue is suspicious, but it can represent a customer return,
+# so I am keeping negative revenues because they are legitimate business transactions.
+
+# The extremely high maximum revenue is caused by quantity_sold = 9999.
+# This is a placeholder/data-entry error rather than a realistic order, so I am removing those rows.
+
+df = df[df["quantity_sold"] != 9999]
+
+print(df.shape)
