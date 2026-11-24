@@ -3,6 +3,6 @@
 Parnian Rezapour
 
 Run with:
-
+```bash
 cd ism2411-lab14
 python clean.py
