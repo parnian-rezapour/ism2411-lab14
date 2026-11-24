@@ -82,8 +82,8 @@ print(df.describe())
 # The negative minimum revenue is suspicious, but it can represent a customer return,
 # so I am keeping negative revenues because they are legitimate business transactions.
 
-# The extremely high maximum revenue is caused by quantity_sold = 9999.
-# This is a placeholder/data-entry error rather than a realistic order, so I am removing those rows.
+# The extremely high maximum revenue could initially look like an unusually large bulk order,
+# but it is caused by quantity_sold = 9999, a placeholder/data-entry error rather than a real order.
 
 df = df[df["quantity_sold"] != 9999]
 
