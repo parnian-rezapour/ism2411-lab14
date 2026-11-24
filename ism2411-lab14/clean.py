@@ -17,3 +17,34 @@ print(df.isnull().sum())
 df.columns = df.columns.str.lower().str.replace(" ", "_")
 
 print(df.columns.tolist())
+
+# Exercise 3 - Handle missing values
+
+print(df.shape)
+
+# Fill numeric columns with only a small number of missing values using the mean
+df["quantity_sold"] = df["quantity_sold"].fillna(df["quantity_sold"].mean())
+
+# Drop rows missing essential identifiers because an order needs both an ID and a date
+df = df.dropna(subset=["order_id", "order_date"])
+
+print(df.shape)
+print(df.isnull().sum())
+
+# Exercise 4 - Fix types
+
+df["order_date"] = pd.to_datetime(df["order_date"], errors="coerce")
+print(df["order_date"].isna().sum())
+
+df["unit_price"] = (
+df["unit_price"]
+.str.replace("$", "", regex=False)
+.str.replace(",", "", regex=False)
+.astype(float)
+)
+
+df["quantity_sold"] = df["quantity_sold"].astype(int)
+
+df["revenue"] = (df["unit_price"] * df["quantity_sold"]).round(2)
+
+print(df.dtypes)
