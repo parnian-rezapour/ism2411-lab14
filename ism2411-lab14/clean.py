@@ -1,3 +1,21 @@
+# Self-Assessment
+#
+# 1. Filling missing values feels the most ambiguous to me because the value I use
+# can affect the results of the analysis. On real data, I would want to know why
+# the values are missing, how the data is used, and whether there is a business
+# rule for estimating them before deciding what to fill in.
+#
+# 2. Yes. I revised my comments so someone unfamiliar with the dataset could
+# understand why I made each decision. I explained why I dropped rows missing
+# essential identifiers, kept negative revenues because they represent returns,
+# and removed the 9999 quantity because it is a placeholder rather than a real order.
+#
+# 3. The biggest surprise after running describe() was how much one incorrect value
+# could distort the dataset. A quantity_sold value of 9999 created a maximum revenue
+# of 59994, which was far outside the normal range and showed how strongly one bad
+# entry can affect the summary statistics.
+
+
 # Exercise 1 - Inspect
 
 import pandas as pd
@@ -70,3 +88,16 @@ print(df.describe())
 df = df[df["quantity_sold"] != 9999]
 
 print(df.shape)
+
+# Exercise 7 - Save
+
+df.to_csv("data/clean_sales.csv", index=False)
+
+check = pd.read_csv("data/clean_sales.csv")
+check.info()
+
+check_dates = pd.read_csv(
+"data/clean_sales.csv",
+parse_dates=["order_date"]
+)
+check_dates.info()
